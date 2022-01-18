@@ -8,17 +8,24 @@ type Props = {
   item: FormState,
   deleteElement: (key: number) => void,
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  register:any
 }
 
 const removeLogo = '/icon/remove.png';
 
 function InputComponent({
-  id, item, deleteElement, onChange,
+  id, item, deleteElement, onChange, register,
 }: Props) {
   return (
     <label className="app-form-item">
       <span className="app-form-item-label">{item.label}</span>
-      <input name={item.label} className="app-form-item-input" value={item.value} onChange={onChange} />
+      <input
+        name={item.label}
+        className="app-form-item-input"
+        value={item.value}
+        onChange={onChange}
+        {...register(item.label)}
+      />
       <button type="button" onClick={() => deleteElement(id)} className="app-form-item-remove-button">
         <img alt="" src={removeLogo} className="app-form-item-remove-button-logo" />
       </button>

@@ -2,6 +2,7 @@ import React from 'react';
 import InputComponent from './InputComponent/InputComponent';
 import './FormComponent.css';
 import { FormState } from '../App';
+import { useForm } from 'react-hook-form';
 
 type Props = {
     formList: FormState[],
@@ -16,6 +17,8 @@ const addLogo = '/icon/add.png';
 function FormComponent({
   formList, setValueFormList, counter, setCounter, initialState,
 }: Props) {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data: any) => console.log(data);
   const addNewElement = () => {
     const newFormList = [...formList, { label: `label #${counter + 1}`, value: '' }];
     setValueFormList(newFormList);
@@ -25,9 +28,6 @@ function FormComponent({
     const newFormList = [...formList];
     newFormList.splice(key, 1);
     setValueFormList(newFormList);
-  };
-  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    alert('Данные отправлены!');
   };
   const handleReset = () => {
     setValueFormList(initialState);
@@ -42,7 +42,7 @@ function FormComponent({
     setValueFormList(newFormList);
   };
   return (
-    <form onSubmit={handleSubmit} onReset={handleReset} className="app-form">
+    <form onSubmit={handleSubmit(onSubmit)} onReset={handleReset} className="app-form">
       {formList.map((item, index) => (
         <InputComponent
           item={item}
@@ -50,6 +50,7 @@ function FormComponent({
           id={index}
           deleteElement={deleteElement}
           onChange={handleChange}
+          register={register}
         />
       ))}
       <button type="button" onClick={addNewElement} className="app-form-button-add">
