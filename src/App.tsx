@@ -1,19 +1,29 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import FormComponent from "./components/FormComponent";
+import FormComponent from './components/FormComponent';
+
+export interface FormState {
+  label: string,
+  value: string,
+}
+
+const initialState : FormState[] = [
+  { label: 'label #1', value: '' },
+];
 
 function App() {
-    const [formList, setValueFormList] = useState(['value #1']);
-    const [formValue, setFormValue] = useState([]);
+  const [counter, setCounter] = useState(1);
+  const [formList, setValueFormList] = useState(initialState);
   return (
-    <div className="App">
+    <div className="app">
       <h2>Динамическая форма</h2>
-        <FormComponent
-            formList={formList}
-            setValueFormList={setValueFormList}
-            formValue={formValue}
-            setFormValue={setFormValue}
-        />
+      <FormComponent
+        formList={formList}
+        setValueFormList={setValueFormList}
+        counter={counter}
+        setCounter={setCounter}
+        initialState={initialState}
+      />
     </div>
   );
 }

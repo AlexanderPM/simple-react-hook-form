@@ -1,23 +1,29 @@
 import React from 'react';
 import './InputComponent.css';
-const removeLogo =  require("./icon/remove.png")
 
+import { FormState } from '../../App';
 
 type Props = {
   id: number,
-  item: string,
+  item: FormState,
   deleteElement: (key: number) => void,
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-function InputComponent({id, item, deleteElement, onChange}: Props) {
-    return (
-      <div className="item-block">
-        <label className='label'>{item}</label>
-        <input name='input-component' className="input-component-textarea" onChange={onChange}/>
-        <img alt='' src={removeLogo}  className='logoRemove' onClick={() => deleteElement(id)}/>
-      </div>
-    );
+const removeLogo = '/icon/remove.png';
+
+function InputComponent({
+  id, item, deleteElement, onChange,
+}: Props) {
+  return (
+    <label className="app-form-item">
+      <span className="app-form-item-label">{item.label}</span>
+      <input name={item.label} className="app-form-item-input" value={item.value} onChange={onChange} />
+      <button type="button" onClick={() => deleteElement(id)} className="app-form-item-remove-button">
+        <img alt="" src={removeLogo} className="app-form-item-remove-button-logo" />
+      </button>
+    </label>
+  );
 }
 
 export default InputComponent;

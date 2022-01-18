@@ -1,43 +1,69 @@
-import InputComponent from "./InputComponent/InputComponent";
-import React from "react";
-import "./FormComponent.css"
-const addLogo =  require("./InputComponent/icon/add.png")
+import React from 'react';
+import InputComponent from './InputComponent/InputComponent';
+import './FormComponent.css';
+import { FormState } from '../App';
 
 type Props = {
-    formList: string[],
-    setValueFormList: (newValue: string[]) => void,
-    formValue: string[],
-    setFormValue: (value: any) => void,
+    formList: FormState[],
+    setValueFormList: (newValue: FormState[]) => void,
+    counter: number,
+    setCounter: (newCounter: number) => void,
+    initialState: FormState[]
 }
 
-const FormComponent = ({formList, setValueFormList, formValue, setFormValue}: Props) => {
-    const addNewElement = () => {
-        const newFormList = [...formList, 'value #' + (formList.length + 1)];
-        setValueFormList(newFormList)
-    }
+const addLogo = '/icon/add.png';
+
+function FormComponent({
+  formList, setValueFormList, counter, setCounter, initialState,
+}: Props) {
+  const addNewElement = () => {
+    const newFormList = [...formList, { label: `label #${counter + 1}`, value: '' }];
+    setValueFormList(newFormList);
+    setCounter(counter + 1);
+  };
   const deleteElement = (key: number) => {
     const newFormList = [...formList];
     newFormList.splice(key, 1);
-    setValueFormList(newFormList)
-  }
-  const handleSubmit = (event: any) => {
-    alert("привет!")
-  }
+    setValueFormList(newFormList);
+  };
+  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    alert('Данные отправлены!');
+  };
+  const handleReset = () => {
+    setValueFormList(initialState);
+    setCounter(1);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = [...formValue, { value: event.target.value }];
-  }
-    return(
-        <>
-            <form onSubmit={handleSubmit} className="form-app">
-                {formList.map((item, index) =>
-                    <InputComponent item={item} key={index} id={index} deleteElement={deleteElement} onChange={handleChange}/>
-                )}
-              <label onClick={addNewElement} className="label-add"><img alt='' src={addLogo}  className='add-logo' /> Добавить поле</label>
-              <input type="submit" className="submit-button" value='Отправить'/>
-            </form>
-        </>
-    );
+    const editElement = event.target.name;
+    const editValue = event.target.value;
+    const newFormList = formList.map((item) => (item.label === editElement
+      ? { label: editElement, value: editValue } : item));
+    setValueFormList(newFormList);
+  };
+  return (
+    <form onSubmit={handleSubmit} onReset={handleReset} className="app-form">
+      {formList.map((item, index) => (
+        <InputComponent
+          item={item}
+          key={item.label}
+          id={index}
+          deleteElement={deleteElement}
+          onChange={handleChange}
+        />
+      ))}
+      <button type="button" onClick={addNewElement} className="app-form-button-add">
+        <label className="app-form-button-add-label">
+          <img alt="" src={addLogo} className="app-form-button-add-label-logo" />
+          Добавить поле
+        </label>
+      </button>
+      <div className="app-form-button">
+        <input type="submit" className="app-form-button-submit" value="Отправить" />
+        <input type="reset" className="app-form-button-reset" value="Сбросить" />
+      </div>
+    </form>
+  );
 }
 
 export default FormComponent;

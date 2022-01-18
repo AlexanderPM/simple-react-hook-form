@@ -1,26 +1,61 @@
-.label-add {
+.app-form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-items: center;
+    margin: 0px auto;
+}
+.app-form-button-add {
+    border: none;
+    cursor: pointer;
+    width: 430px;
+    margin: 10px 0px;
+}
+.app-form-button-add:hover {
+    background-color:grey;
+    color: white;
+}
+.app-form-button-add-label {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 20px;
-    margin-left: 40px;
-    cursor:pointer;
+    justify-content: center;
+    margin: 10px;
+    cursor: pointer;
 }
-.add-logo {
+.app-form-button-add-label-logo {
     width: 20px;
     height: 20px;
     margin-right: 5px;
 }
-.submit-button{
-    margin-left: 40px;
+.app-form-button {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+.app-form-button-submit{
+    margin-left: 30px;
     background-color: #4CAF50;
     border: none;
     color: white;
     padding: 15px 32px;
+    width: 140px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     cursor:pointer;
-
+}
+.app-form-button-reset{
+    margin-left: 30px;
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    width: 140px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor:pointer;
 }
