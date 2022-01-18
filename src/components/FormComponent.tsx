@@ -18,7 +18,6 @@ function FormComponent({
 }: Props) {
   const methods = useForm();
   const onSubmit = (data: Record<string, string>) => {
-    // eslint-disable-next-line no-console
     console.log(data);
     methods.reset();
   };
