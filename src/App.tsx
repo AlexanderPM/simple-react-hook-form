@@ -4,11 +4,10 @@ import FormComponent from './components/FormComponent';
 
 export interface FormState {
   label: string,
-  value: string,
 }
 
 const initialState : FormState[] = [
-  { label: 'label #1', value: '' },
+  { label: 'label #1' },
 ];
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
         setValueFormList={setValueFormList}
         counter={counter}
         setCounter={setCounter}
-        initialState={initialState}
       />
     </div>
   );
